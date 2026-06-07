@@ -9,7 +9,7 @@ namespace Arcade.Game
 
         [Header("Spawning")]
         [SerializeField] private GameObject targetPrefab;
-        [SerializeField] private TargetDefinition[] targetDefinitions;
+        public TargetDefinition[] targetDefinitions;
         [SerializeField] private Transform targetContainer;
 
         [Header("Config")]
@@ -125,6 +125,7 @@ namespace Arcade.Game
 
             // Pick random target type
             TargetDefinition def = targetDefinitions[Random.Range(0, targetDefinitions.Length)];
+            if (def == null) return;
 
             // Find valid spawn position
             Vector3? spawnPos = FindValidSpawnPosition();
@@ -144,6 +145,12 @@ namespace Arcade.Game
 
         private Vector3? FindValidSpawnPosition()
         {
+            if (mainCamera == null)
+            {
+                mainCamera = Camera.main;
+                if (mainCamera == null) return null;
+            }
+
             // Convert safe zone to screen coordinates
             float screenWidth = Screen.width;
             float screenHeight = Screen.height;
@@ -172,6 +179,8 @@ namespace Arcade.Game
 
         private bool IsPositionValid(Vector2 screenPos)
         {
+            if (mainCamera == null) return true;
+
             foreach (var target in activeTargets)
             {
                 if (target == null) continue;
@@ -189,12 +198,23 @@ namespace Arcade.Game
         private void OnTargetGestureAttempt(Target target, GestureType gesture)
         {
             // Verify gesture matches target requirement
-            if (target != null && target.definition != null && target.definition.requiredGesture == gesture)
+            if (target != null && 
+                target.definition != null && 
+                target.definition.requiredGesture == gesture)
             {
                 // Success
-                EffectsManager.Instance?.PlayHitEffect(target.transform.position, target.definition.targetColor, target.definition.baseScore);
-                ScoreManager.Instance?.AddScore(target.definition.baseScore);
-                ScoreManager.Instance?.RegisterHit();
+                if (EffectsManager.Instance != null)
+                {
+                    EffectsManager.Instance.PlayHitEffect(
+                        target.transform.position, 
+                        target.definition.targetColor, 
+                        target.definition.baseScore);
+                }
+                if (ScoreManager.Instance != null)
+                {
+                    ScoreManager.Instance.AddScore(target.definition.baseScore);
+                    ScoreManager.Instance.RegisterHit();
+                }
                 target.Expire(true);
                 RemoveTarget(target);
                 target.DestroyTarget();
@@ -204,9 +224,15 @@ namespace Arcade.Game
                 // Wrong gesture - counts as miss
                 if (target != null)
                 {
-                    EffectsManager.Instance?.PlayMissEffect(target.transform.position);
+                    if (EffectsManager.Instance != null)
+                    {
+                        EffectsManager.Instance.PlayMissEffect(target.transform.position);
+                    }
                 }
-                ScoreManager.Instance?.RegisterMiss();
+                if (ScoreManager.Instance != null)
+                {
+                    ScoreManager.Instance.RegisterMiss();
+                }
             }
         }
 
@@ -214,9 +240,15 @@ namespace Arcade.Game
         {
             if (target != null)
             {
-                EffectsManager.Instance?.PlayMissEffect(target.transform.position);
+                if (EffectsManager.Instance != null)
+                {
+                    EffectsManager.Instance.PlayMissEffect(target.transform.position);
+                }
             }
-            ScoreManager.Instance?.RegisterMiss();
+            if (ScoreManager.Instance != null)
+            {
+                ScoreManager.Instance.RegisterMiss();
+            }
             RemoveTarget(target);
             if (target != null)
                 target.DestroyTarget();

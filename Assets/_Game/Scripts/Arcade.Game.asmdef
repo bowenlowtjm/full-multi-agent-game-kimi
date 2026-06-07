@@ -2,8 +2,7 @@
     "name": "Arcade.Game",
     "rootNamespace": "Arcade.Game",
     "references": [
-        "Unity.InputSystem",
-        "Unity.TextMeshPro"
+        "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 namespace Arcade.Game
 {
@@ -8,8 +7,8 @@ namespace Arcade.Game
     {
         [Header("UI")]
         [SerializeField] private Button startButton;
-        [SerializeField] private TextMeshProUGUI highScoreText;
-        [SerializeField] private TextMeshProUGUI versionText;
+        [SerializeField] private Text highScoreText;
+        [SerializeField] private Text versionText;
 
         private void Start()
         {
@@ -37,8 +36,10 @@ namespace Arcade.Game
 
         private void OnStartClicked()
         {
-            GameStateManager.Instance?.StartGame();
-            SceneLoader.Instance?.LoadScene("Gameplay");
+            if (GameStateManager.Instance != null)
+                GameStateManager.Instance.StartGame();
+            if (SceneLoader.Instance != null)
+                SceneLoader.Instance.LoadScene("Gameplay");
         }
     }
 }

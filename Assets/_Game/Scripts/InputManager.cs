@@ -86,16 +86,21 @@ namespace Arcade.Game
 
         private void OnTouchBegan(int fingerId, Vector2 screenPos)
         {
-            Ray ray = mainCamera.ScreenPointToRay(screenPos);
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, targetLayer);
-
-            Target hitTarget = hit.collider?.GetComponent<Target>();
+            Target hitTarget = null;
+            
+            if (mainCamera != null)
+            {
+                Ray ray = mainCamera.ScreenPointToRay(screenPos);
+                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, targetLayer);
+                hitTarget = hit.collider?.GetComponent<Target>();
+            }
 
             // Check for double tap
             bool isDoubleTap = false;
             if (lastTapTimes.TryGetValue(fingerId, out float lastTime))
             {
-                if (Time.time - lastTime <= doubleTapInterval)
+                float timeSinceLast = Time.time - lastTime;
+                if (timeSinceLast <= doubleTapInterval)
                 {
                     if (lastTapPositions.TryGetValue(fingerId, out Vector2 lastPos))
                     {
@@ -132,7 +137,6 @@ namespace Arcade.Game
             }
 
             // For touch: record tap immediately
-            // For mouse double-click: need to wait
             if (!isDoubleTap)
             {
                 lastTapTimes[fingerId] = Time.time;
@@ -161,7 +165,7 @@ namespace Arcade.Game
                 }
             }
 
-            if (touch.isDragging && touch.targetHit != null)
+            if (touch.isDragging && touch.targetHit != null && mainCamera != null)
             {
                 // Move target with finger
                 Vector3 worldPos = mainCamera.ScreenToWorldPoint(screenPos);
@@ -189,7 +193,8 @@ namespace Arcade.Game
                 else if (!touch.isDoubleTap)
                 {
                     // Check for long press or single tap
-                    if (duration >= touch.targetHit.definition.longPressDuration &&
+                    if (touch.targetHit.definition != null &&
+                        duration >= touch.targetHit.definition.longPressDuration &&
                         touch.targetHit.TargetType == TargetType.Charge)
                     {
                         touch.targetHit.OnLongPressComplete(fingerId);
@@ -208,26 +213,54 @@ namespace Arcade.Game
         {
             if (target == null) return;
 
-            bool inTrashZone = TrashBinZone.Instance?.IsPointInZone(screenPos) ?? false;
+            bool inTrashZone = false;
+            if (TrashBinZone.Instance != null)
+            {
+                inTrashZone = TrashBinZone.Instance.IsPointInZone(screenPos);
+            }
 
             if (inTrashZone && target.IsTrashTarget)
             {
                 // Success!
-                EffectsManager.Instance?.PlayHitEffect(target.transform.position, Color.red, target.definition.baseScore);
+                if (EffectsManager.Instance != null)
+                {
+                    Color c = target.definition != null ? target.definition.targetColor : Color.red;
+                    int pts = target.definition != null ? target.definition.baseScore : 40;
+                    EffectsManager.Instance.PlayHitEffect(target.transform.position, c, pts);
+                }
                 target.Expire(true);
-                ScoreManager.Instance?.AddScore(target.definition.baseScore);
-                ScoreManager.Instance?.RegisterHit();
-                TrashBinZone.Instance?.OnTrashReceived();
+                if (ScoreManager.Instance != null)
+                {
+                    int pts = target.definition != null ? target.definition.baseScore : 40;
+                    ScoreManager.Instance.AddScore(pts);
+                    ScoreManager.Instance.RegisterHit();
+                }
+                if (TrashBinZone.Instance != null)
+                {
+                    TrashBinZone.Instance.OnTrashReceived();
+                }
                 target.DestroyTarget();
-                SpawnerManager.Instance?.ActiveTargets.Remove(target);
+                if (SpawnerManager.Instance != null && SpawnerManager.Instance.ActiveTargets.Contains(target))
+                {
+                    SpawnerManager.Instance.ActiveTargets.Remove(target);
+                }
             }
             else
             {
                 // Fail - dropped outside bin
-                EffectsManager.Instance?.PlayMissEffect(target.transform.position);
-                ScoreManager.Instance?.RegisterMiss();
+                if (EffectsManager.Instance != null)
+                {
+                    EffectsManager.Instance.PlayMissEffect(target.transform.position);
+                }
+                if (ScoreManager.Instance != null)
+                {
+                    ScoreManager.Instance.RegisterMiss();
+                }
                 target.DestroyTarget();
-                SpawnerManager.Instance?.ActiveTargets.Remove(target);
+                if (SpawnerManager.Instance != null && SpawnerManager.Instance.ActiveTargets.Contains(target))
+                {
+                    SpawnerManager.Instance.ActiveTargets.Remove(target);
+                }
             }
         }
 

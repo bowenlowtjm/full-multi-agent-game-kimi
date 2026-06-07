@@ -9,7 +9,7 @@ namespace Arcade.Game
 
         [Header("Refs")]
         [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private TextMesh gestureText;
+        [SerializeField] private UnityEngine.UI.Text gestureText;
 
         [Header("State")]
         [SerializeField] private float lifetime;
@@ -24,10 +24,10 @@ namespace Arcade.Game
         private Color originalColor;
         private bool isExpired = false;
 
-        public TargetType TargetType => definition?.targetType ?? TargetType.Pop;
+        public TargetType TargetType => definition != null ? definition.targetType : TargetType.Pop;
         public bool IsTrashTarget => TargetType == TargetType.Trash;
         public bool IsHeld => isHeld;
-        public float HoldProgress => holdTime / (definition?.longPressDuration ?? 1.5f);
+        public float HoldProgress => definition != null ? holdTime / definition.longPressDuration : 0f;
 
         private void Awake()
         {
@@ -39,6 +39,12 @@ namespace Arcade.Game
 
         public void Init(TargetDefinition def)
         {
+            if (def == null)
+            {
+                Debug.LogError("Target.Init called with null definition!");
+                return;
+            }
+
             definition = def;
             lifetime = def.lifetime;
 
@@ -62,7 +68,10 @@ namespace Arcade.Game
 
         private void Update()
         {
-            if (isExpired || GameStateManager.Instance?.CurrentState != GameState.GAMEPLAY)
+            if (isExpired || definition == null) return;
+
+            if (GameStateManager.Instance != null && 
+                GameStateManager.Instance.CurrentState != GameState.GAMEPLAY)
                 return;
 
             lifetime -= Time.deltaTime;
@@ -97,16 +106,41 @@ namespace Arcade.Game
 
         public void OnTouchDown(int id, Vector2 screenPos)
         {
-            if (isExpired || isHeld) return;
+            if (isExpired || isHeld || definition == null) return;
 
             fingerId = id;
             isHeld = true;
             holdTime = 0f;
+
+            // Pop visual
+            StopAllCoroutines();
+            StartCoroutine(PopAnimation());
+        }
+
+        private System.Collections.IEnumerator PopAnimation()
+        {
+            Vector3 target = originalScale * 1.2f;
+            float elapsed = 0f;
+            while (elapsed < 0.1f)
+            {
+                transform.localScale = Vector3.Lerp(originalScale, target, elapsed / 0.1f);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            transform.localScale = target;
+            elapsed = 0f;
+            while (elapsed < 0.1f)
+            {
+                transform.localScale = Vector3.Lerp(target, originalScale, elapsed / 0.1f);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            transform.localScale = originalScale;
         }
 
         public void OnTouchUp(int id)
         {
-            if (isExpired || fingerId != id) return;
+            if (isExpired || fingerId != id || definition == null) return;
 
             if (TargetType == TargetType.Pop)
             {
@@ -130,7 +164,8 @@ namespace Arcade.Game
                 {
                     // Released too early - wrong gesture
                     OnGestureAttempt?.Invoke(this, GestureType.SingleTap);
-                    ScoreManager.Instance?.BreakCombo();
+                    if (ScoreManager.Instance != null)
+                        ScoreManager.Instance.BreakCombo();
                 }
             }
 
@@ -141,7 +176,7 @@ namespace Arcade.Game
 
         public void OnDoubleTap(int id)
         {
-            if (isExpired) return;
+            if (isExpired || definition == null) return;
 
             if (TargetType == TargetType.Heavy)
             {
@@ -152,13 +187,14 @@ namespace Arcade.Game
             {
                 // Wrong gesture
                 OnGestureAttempt?.Invoke(this, GestureType.DoubleTap);
-                ScoreManager.Instance?.BreakCombo();
+                if (ScoreManager.Instance != null)
+                    ScoreManager.Instance.BreakCombo();
             }
         }
 
         public void OnLongPressComplete(int id)
         {
-            if (isExpired) return;
+            if (isExpired || definition == null) return;
 
             if (TargetType == TargetType.Charge)
             {
@@ -168,6 +204,8 @@ namespace Arcade.Game
 
         private void CompleteHold()
         {
+            isHeld = false;
+            fingerId = -1;
             OnGestureAttempt?.Invoke(this, GestureType.LongPress);
             Expire(true);
         }

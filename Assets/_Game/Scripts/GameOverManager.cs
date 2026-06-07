@@ -1,14 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 namespace Arcade.Game
 {
     public class GameOverManager : MonoBehaviour
     {
         [Header("UI")]
-        [SerializeField] private TextMeshProUGUI scoreText;
-        [SerializeField] private TextMeshProUGUI highScoreText;
+        [SerializeField] private Text scoreText;
+        [SerializeField] private Text highScoreText;
         [SerializeField] private GameObject newHighScoreBadge;
         [SerializeField] private Button retryButton;
         [SerializeField] private Button menuButton;
@@ -41,16 +40,22 @@ namespace Arcade.Game
 
         private void OnRetryClicked()
         {
-            ScoreManager.Instance?.ResetGame();
-            GameStateManager.Instance?.StartGame();
-            SceneLoader.Instance?.LoadScene("Gameplay");
+            if (ScoreManager.Instance != null)
+                ScoreManager.Instance.ResetGame();
+            if (GameStateManager.Instance != null)
+                GameStateManager.Instance.StartGame();
+            if (SceneLoader.Instance != null)
+                SceneLoader.Instance.LoadScene("Gameplay");
         }
 
         private void OnMenuClicked()
         {
-            ScoreManager.Instance?.ResetGame();
-            GameStateManager.Instance?.GoToMainMenu();
-            SceneLoader.Instance?.LoadScene("MainMenu");
+            if (ScoreManager.Instance != null)
+                ScoreManager.Instance.ResetGame();
+            if (GameStateManager.Instance != null)
+                GameStateManager.Instance.GoToMainMenu();
+            if (SceneLoader.Instance != null)
+                SceneLoader.Instance.LoadScene("MainMenu");
         }
     }
 }

@@ -1,16 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 namespace Arcade.Game
 {
     public class HUDManager : MonoBehaviour
     {
         [Header("Score")]
-        [SerializeField] private TextMeshProUGUI scoreText;
+        [SerializeField] private Text scoreText;
 
         [Header("Combo")]
-        [SerializeField] private TextMeshProUGUI comboText;
+        [SerializeField] private Text comboText;
         [SerializeField] private GameObject comboContainer;
 
         [Header("Lives")]
@@ -22,7 +21,7 @@ namespace Arcade.Game
         [SerializeField] private GameObject pausePanel;
 
         [Header("High Score")]
-        [SerializeField] private TextMeshProUGUI highScoreText;
+        [SerializeField] private Text highScoreText;
 
         [Header("Trash Zone")]
         [SerializeField] private TrashBinZone trashBinZone;
@@ -132,6 +131,8 @@ namespace Arcade.Game
 
         private void TogglePause()
         {
+            if (GameStateManager.Instance == null) return;
+
             if (GameStateManager.Instance.CurrentState == GameState.GAMEPLAY)
             {
                 GameStateManager.Instance.PauseGame();
