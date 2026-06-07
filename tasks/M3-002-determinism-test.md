@@ -1,10 +1,20 @@
 # M3-002: Determinism Test
 
-**Status:** Backlog
+**Status:** ✅ Done
 **Priority:** P2
-**Assigned:** —
+**Assigned:** orchestrator
 **Estimated:** 3h
+**Started:** 2026-06-08
+**Completed:** 2026-06-08
 **Milestone:** M3 — Balance & Robustness
+
+## Completed Work
+
+- [x] `DeterminismTests.cs` with 4 test cases
+- [x] Same seed → identical spawn sequences
+- [x] Different seeds → different sequences  
+- [x] Score calculation determinism verified
+- [x] Seeded RNG verification
 
 ## Description
 

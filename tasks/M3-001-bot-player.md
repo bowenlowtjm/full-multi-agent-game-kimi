@@ -1,10 +1,21 @@
 # M3-001: Bot Player
 
-**Status:** Backlog
+**Status:** ✅ Done
 **Priority:** P2
-**Assigned:** —
+**Assigned:** orchestrator
 **Estimated:** 5h
+**Started:** 2026-06-08
+**Completed:** 2026-06-08
 **Milestone:** M3 — Balance & Robustness
+
+## Completed Work
+
+- [x] `BotPlayer.cs` with target detection
+- [x] Simulates all 5 gesture types correctly
+- [x] Configurable accuracy (0-1 range)
+- [x] Session stats: hits, misses, reaction time
+- [x] Event-driven hit/miss tracking
+- [x] Perfect bot (100% accuracy) and realistic bot modes
 
 ## Description
 

@@ -1,10 +1,21 @@
 # M3-004: Gameplay Harness
 
-**Status:** Backlog
+**Status:** ✅ Done
 **Priority:** P2
-**Assigned:** —
+**Assigned:** orchestrator
 **Estimated:** 4h
+**Started:** 2026-06-08
+**Completed:** 2026-06-08
 **Milestone:** M3 — Balance & Robustness
+
+## Completed Work
+
+- [x] `GameplayHarness.cs` Editor tool
+- [x] Configurable session count
+- [x] Score distribution tracking
+- [x] FPS monitoring placeholder
+- [x] Session results table
+- [x] Markdown report export to `docs/perf/`
 
 ## Description
 
