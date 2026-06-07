@@ -135,23 +135,44 @@ namespace Arcade.Game
 
             if (GameStateManager.Instance.CurrentState == GameState.GAMEPLAY)
             {
-                GameStateManager.Instance.PauseGame();
-                if (pausePanel != null)
-                    pausePanel.SetActive(true);
-                Time.timeScale = 0f;
+                PauseGame();
             }
             else if (GameStateManager.Instance.CurrentState == GameState.PAUSE)
             {
-                GameStateManager.Instance.ResumeGame();
-                if (pausePanel != null)
-                    pausePanel.SetActive(false);
-                Time.timeScale = 1f;
+                ResumeGame();
             }
+        }
+
+        public void PauseGame()
+        {
+            GameStateManager.Instance?.PauseGame();
+            if (pausePanel != null)
+                pausePanel.SetActive(true);
+            Time.timeScale = 0f;
         }
 
         public void ResumeGame()
         {
-            TogglePause();
+            GameStateManager.Instance?.ResumeGame();
+            if (pausePanel != null)
+                pausePanel.SetActive(false);
+            Time.timeScale = 1f;
+        }
+
+        public void RestartGame()
+        {
+            ResumeGame(); // Reset time scale
+            ScoreManager.Instance?.ResetGame();
+            GameStateManager.Instance?.StartGame();
+            SceneLoader.Instance?.LoadScene("Gameplay");
+        }
+
+        public void QuitToMenu()
+        {
+            ResumeGame(); // Reset time scale
+            ScoreManager.Instance?.ResetGame();
+            GameStateManager.Instance?.GoToMainMenu();
+            SceneLoader.Instance?.LoadScene("MainMenu");
         }
     }
 }

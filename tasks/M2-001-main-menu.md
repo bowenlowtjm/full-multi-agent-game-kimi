@@ -1,10 +1,19 @@
 # M2-001: Main Menu Screen
 
-**Status:** Backlog
+**Status:** ✅ Done
 **Priority:** P1
-**Assigned:** —
+**Assigned:** orchestrator
 **Estimated:** 3h
+**Started:** 2026-06-08
+**Completed:** 2026-06-08
 **Milestone:** M2 — Menus + Art + Build
+
+## Completed Work
+
+- [x] `MainMenuManager` with Play button, Best Score display
+- [x] Scene transitions via `SceneLoader`
+- [x] High score read from PlayerPrefs
+- [x] GoToMainMenu state initialization
 
 ## Description
 

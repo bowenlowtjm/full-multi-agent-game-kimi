@@ -1,10 +1,20 @@
 # M2-005: Game Over Flow
 
-**Status:** Backlog
+**Status:** ✅ Done
 **Priority:** P1
-**Assigned:** —
+**Assigned:** orchestrator
 **Estimated:** 3h
+**Started:** 2026-06-08
+**Completed:** 2026-06-08
 **Milestone:** M2 — Menus + Art + Build
+
+## Completed Work
+
+- [x] `GameOverManager` displays final score and best
+- [x] New High Score badge logic
+- [x] Retry button → reloads Gameplay scene
+- [x] Menu button → returns to MainMenu
+- [x] ScoreManager.ResetGame() on both actions
 
 ## Description
 

@@ -1,10 +1,21 @@
 # M2-003: Game Scene HUD
 
-**Status:** Backlog
+**Status:** ✅ Done
 **Priority:** P1
-**Assigned:** —
+**Assigned:** orchestrator
 **Estimated:** 4h
+**Started:** 2026-06-08
+**Completed:** 2026-06-08
 **Milestone:** M2 — Menus + Art + Build
+
+## Completed Work
+
+- [x] `HUDManager` with Score display (D6 format)
+- [x] Combo multiplier display with hide/show
+- [x] Lives display (dynamic icon spawning)
+- [x] Pause button and toggle
+- [x] Best score display
+- [x] Event-driven updates from ScoreManager
 
 ## Description
 

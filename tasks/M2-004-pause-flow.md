@@ -1,10 +1,21 @@
 # M2-004: Pause Flow
 
-**Status:** Backlog
+**Status:** ✅ Done
 **Priority:** P1
-**Assigned:** —
+**Assigned:** orchestrator
 **Estimated:** 3h
+**Started:** 2026-06-08
+**Completed:** 2026-06-08
 **Milestone:** M2 — Menus + Art + Build
+
+## Completed Work
+
+- [x] `PauseGame()` / `ResumeGame()` methods
+- [x] `RestartGame()` method
+- [x] `QuitToMenu()` method
+- [x] Time.timeScale = 0 for pause
+- [x] Pause panel activation/deactivation
+- [x] Scene transitions on restart/quit
 
 ## Description
 
