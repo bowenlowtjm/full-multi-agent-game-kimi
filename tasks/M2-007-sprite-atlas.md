@@ -1,9 +1,9 @@
 # M2-007: Sprite Atlas
 
-**Status:** Backlog
-**Priority:** P2
-**Assigned:** game-art
-**Estimated:** 2h
+**Status:** Ready to Start  
+**Priority:** P2  
+**Assigned:** game-art  
+**Estimated:** 2h  
 **Milestone:** M2 — Menus + Art + Build
 
 ## Description

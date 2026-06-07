@@ -2,6 +2,19 @@
 
 ## Visual Identity
 
+*Last updated: 2025-06-08*
+*Theme: "Critters" - Each shape is a little creature with personality*
+
+### Design Rationale
+The "Critters" theme was chosen to create instant emotional connection with players. Each shape isn't just a geometric form—it's a living creature that reacts to player input:
+- **Green Circle**: A bouncy, friendly blob. Simple and approachable—perfect for single-tap learning.
+- **Red Circle**: The "anxious" version. Suggests danger with its worried expression—this is the trap/long-press target.
+- **Blue Square**: Solid and weighty. Reinforces the need for double-tap through its blocky, metallic appearance.
+- **Yellow Triangle**: Directional and energetic. Points players toward the swipe gesture with its alert expression.
+- **Purple Star**: Rare and valuable. Stars in its eyes and a celebratory burst on hit make this high-value target feel special.
+
+Faces are universally readable: dot eyes, simple mouths, and clear expressions (worry, happiness, panic) transcend language barriers. High contrast silhouette shapes ensure accessibility for colorblind players.
+
 ### Color Palette (from PRD)
 | Element | Color | Usage |
 |---------|-------|-------|

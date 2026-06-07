@@ -58,7 +58,7 @@ namespace Arcade.Game
             trash.displayName = "Trash";
             trash.targetColor = new Color32(244, 67, 54, 255); // Alert Red
             trash.targetSprite = trashSprite;
-            trash.requiredGesture = GestureType.Drag;
+            trash.requiredGesture = GestureType.SwipeTap;
             trash.baseScore = 40;
             trash.lifetime = 8f;
 

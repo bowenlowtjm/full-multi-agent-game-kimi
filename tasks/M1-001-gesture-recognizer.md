@@ -1,9 +1,10 @@
 # M1-001: Gesture Recognizer
 
-**Status:** Backlog  
+**Status:** 🟡 In Progress  
 **Priority:** P0 (blocks all gameplay)  
-**Assigned:** —  
+**Assigned:** orchestrator  
 **Estimated:** 4h  
+**Started:** 2026-06-08  
 **Milestone:** M1 — Core Loop
 
 ## Description

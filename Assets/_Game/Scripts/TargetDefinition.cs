@@ -16,7 +16,8 @@ namespace Arcade.Game
         SingleTap,
         DoubleTap,
         LongPress,
-        Drag
+        SwipeTap,      // TG-04: Tap + directional flick
+        TwoFingerTap   // TG-05: Two simultaneous touches
     }
 
     [CreateAssetMenu(fileName = "NewTarget", menuName = "Arcade/Target Definition")]
@@ -50,7 +51,7 @@ namespace Arcade.Game
                 case GestureType.SingleTap: return "TAP";
                 case GestureType.DoubleTap: return "DOUBLE TAP";
                 case GestureType.LongPress: return $"HOLD {longPressDuration}s";
-                case GestureType.Drag: return "DRAG TO BIN";
+                case GestureType.SwipeTap: return "SWIPE";
                 default: return "";
             }
         }

@@ -9,10 +9,16 @@
 
 | Milestone | Status | Assigned | Blocking |
 |-----------|--------|----------|----------|
-| M1 | 🔴 Not Started | — | — |
-| M2 | 🔴 Not Started | — | M1 |
-| M3 | 🔴 Not Started | — | M2 |
-| M4 | 🔴 Not Started | — | M3 |
+| M1 | 🟡 In Progress | orchestrator | — |
+| M2 | 🔴 Not Started | game-art | M1 |
+| M3 | 🔴 Not Started | game-pm | M2 |
+| M4 | 🔴 Not Started | game-pm | M3 |
+
+## Completed Tasks
+
+| Task | Status | Completed By |
+|------|--------|--------------|
+| M2-006-sprite-generation | ✅ Done | game-art — Generated 33 PNGs (25 targets + 5 UI + 3 FX) |
 
 ## Task Files
 
@@ -31,7 +37,7 @@
 - [M2-003-game-scene-hud.md](M2-003-game-scene-hud.md) — Score, combo, lives, timer UI
 - [M2-004-pause-flow.md](M2-004-pause-flow.md) — Resume, restart, settings, quit
 - [M2-005-game-over-flow.md](M2-005-game-over-flow.md) — Score display, best score, retry/menu
-- [M2-006-sprite-generation.md](M2-006-sprite-generation.md) — 4 target shapes + UI/FX sprites
+- [~~M2-006-sprite-generation.md~~](M2-006-sprite-generation.md) — 4 target shapes + UI/FX sprites — ✅ **DONE** (game-art: 33 sprites generated)
 - [M2-007-sprite-atlas.md](M2-007-sprite-atlas.md) — Pack sprites, set import settings
 - [M2-008-ci-apk-build.md](M2-008-ci-apk-build.md) — APK builds and installs
 - [M2-009-integration-tests.md](M2-009-integration-tests.md) — Lives/timer/game-over flow tests
@@ -59,7 +65,7 @@
 |------|-------|--------------|
 | Orchestrator | hermes-main | Coordinating, task dispatch |
 | Game PM | game-pm | Creates tasks, accepts work, quality gate |
-| Game Art | game-art | Sprite generation, atlas packing |
+| Game Art | game-art | ~~Sprite generation~~ → Sprite atlas packing (M2-007) |
 | QA | qa | Pre-merge verification, smoke tests |
 
 ## File Naming Convention

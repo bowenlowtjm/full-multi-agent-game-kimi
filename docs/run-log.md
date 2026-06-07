@@ -102,3 +102,52 @@ To complete a fully playable Android APK:
 - Assembly: `Arcade.Game` (main), `Arcade.Tests.*` (tests)
 - All game systems use singleton pattern for easy access
 - Event-driven architecture for loose coupling
+
+---
+
+## QA Setup Activity (2025-06-08)
+
+**Agent:** qa (Independent QA Gate)  
+**Action:** Established QA workflow per qa.SKILL.md  
+**Config:** B (Hermes role-team), L3 autonomy
+
+### Artifacts Created
+
+| File | Purpose |
+|------|---------|
+| `docs/QA-PLAN.md` | QA workflow, verification tiers, report template, anti-patterns |
+| `docs/M1-QA-CHECKLIST.md` | Pre-M1 verification checklist (9 sections, 60+ checks) |
+| `docs/CI-AUTOMATION-RECOMMENDATIONS.md` | Automated CI checks for merge gate |
+
+### QA Role Established
+
+- **Authority:** L3 autonomous merge gate — I am the final blocker, no human oversight
+- **Trigger:** PR to main, milestone push, task in-review
+- **Output:** Sign off (merge OK) or FAIL (bounce to worker)
+- **Evidence:** Compile check, CI green, test coverage, playability (M2+)
+
+### M1 Readiness Status
+
+| Milestone | Status | Blockers |
+|-----------|--------|----------|
+| M1 Core Loop | 🔴 Not Started | Awaiting implementation of 7 tasks |
+| QA System | 🟢 Ready | Checklists created, workflow established |
+
+### Pre-M1 Verification Ready
+
+9 checklists prepared covering:
+- A: Build & Compilation (6 checks)
+- B: Gesture Recognition (8 checks)
+- C: Ruleset Definition (7 checks)
+- D: Scoring System (8 checks)
+- E: Target Spawner (8 checks)
+- F: Input Manager (7 checks)
+- G: EditMode Tests (7 checks)
+- H: PlayMode Integration (7 checks)
+- I: PRD Verification (2 checks)
+
+**Total:** 60+ individual verification points
+
+### Next QA Action
+
+Await M1 task completion, then execute full verification per `docs/M1-QA-CHECKLIST.md`.
