@@ -1,11 +1,20 @@
 # M1-003: Scoring System
 
-**Status:** 🟡 In Progress
+**Status:** ✅ Done
 **Priority:** P0
 **Assigned:** orchestrator
 **Estimated:** 4h
 **Started:** 2026-06-08
+**Completed:** 2026-06-08
 **Milestone:** M1 — Core Loop
+
+## Completed Work
+
+- [x] `ScoreManager` integrated with `RulesetDefinition`
+- [x] Combo multiplier uses ruleset.comboCap
+- [x] Lives uses ruleset.lives
+- [x] `RegisterHit(baseReward)` overload for ruleset-driven scoring
+- [x] `SetRuleset()` method for runtime configuration
 
 ## Description
 

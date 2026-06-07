@@ -12,6 +12,10 @@ namespace Arcade.Game
         public TargetDefinition[] targetDefinitions;
         [SerializeField] private Transform targetContainer;
 
+        [Header("Ruleset")]
+        [SerializeField] private RulesetDefinition ruleset;
+        private System.Random seededRng;
+
         [Header("Config")]
         [SerializeField] private float initialSpawnRate = 1.5f;
         [SerializeField] private float minimumSpawnRate = 0.4f;
@@ -28,9 +32,11 @@ namespace Arcade.Game
         [SerializeField] private float currentSpawnRate;
         [SerializeField] private float spawnTimer;
         [SerializeField] private float gameTimer;
+        [SerializeField] private float difficultyTimer;
         private List<Target> activeTargets = new List<Target>();
 
         public List<Target> ActiveTargets => activeTargets;
+        public System.Random SeededRng => seededRng;
 
         private Camera mainCamera;
         private bool isSpawning = false;
@@ -46,6 +52,45 @@ namespace Arcade.Game
 
             mainCamera = Camera.main;
             currentSpawnRate = initialSpawnRate;
+        }
+
+        public void SetRuleset(RulesetDefinition newRuleset)
+        {
+            ruleset = newRuleset;
+            if (ruleset != null)
+            {
+                // Use seeded RNG for determinism
+                seededRng = new System.Random(ruleset.seed);
+                
+                // Apply ruleset settings
+                initialSpawnRate = ruleset.spawnIntervalStart;
+                minimumSpawnRate = ruleset.spawnIntervalEnd;
+                maxConcurrentTargets = ruleset.maxConcurrentTargets;
+                
+                // Build target definitions from ruleset
+                BuildTargetDefinitionsFromRuleset();
+                
+                currentSpawnRate = initialSpawnRate;
+            }
+        }
+
+        private void BuildTargetDefinitionsFromRuleset()
+        {
+            if (ruleset == null || ruleset.rules == null) return;
+            
+            var defs = new List<TargetDefinition>();
+            foreach (var rule in ruleset.rules)
+            {
+                var def = ScriptableObject.CreateInstance<TargetDefinition>();
+                def.targetType = (TargetType)rule.shape;
+                def.targetColor = rule.color;
+                def.requiredGesture = (GestureType)(int)rule.requiredGesture;
+                def.baseScore = rule.baseReward;
+                def.lifetime = ruleset.targetLifetime;
+                def.displayName = rule.shape.ToString();
+                defs.Add(def);
+            }
+            targetDefinitions = defs.ToArray();
         }
 
         private void OnEnable()
@@ -65,12 +110,14 @@ namespace Arcade.Game
             if (!isSpawning) return;
 
             gameTimer += Time.deltaTime;
+            difficultyTimer += Time.deltaTime;
 
-            // Difficulty ramping
-            if (gameTimer >= difficultyRampDelay)
+            // Difficulty ramping based on ruleset
+            float rampInterval = ruleset != null ? 10f : difficultyRampDelay;
+            if (difficultyTimer >= rampInterval)
             {
                 currentSpawnRate = Mathf.Max(minimumSpawnRate, currentSpawnRate - spawnRateReductionStep);
-                gameTimer = 0f;
+                difficultyTimer = 0f;
             }
 
             // Spawning
@@ -100,6 +147,13 @@ namespace Arcade.Game
             currentSpawnRate = initialSpawnRate;
             gameTimer = 0f;
             spawnTimer = 0f;
+            difficultyTimer = 0f;
+            
+            // Reset RNG if using ruleset
+            if (ruleset != null)
+            {
+                seededRng = new System.Random(ruleset.seed);
+            }
         }
 
         public void StopSpawning()
@@ -123,8 +177,12 @@ namespace Arcade.Game
             if (targetDefinitions == null || targetDefinitions.Length == 0) return;
             if (targetPrefab == null) return;
 
-            // Pick random target type
-            TargetDefinition def = targetDefinitions[Random.Range(0, targetDefinitions.Length)];
+            // Pick target type using seeded RNG if available, otherwise random
+            int index = seededRng != null ? 
+                seededRng.Next(0, targetDefinitions.Length) : 
+                Random.Range(0, targetDefinitions.Length);
+            
+            TargetDefinition def = targetDefinitions[index];
             if (def == null) return;
 
             // Find valid spawn position
@@ -162,8 +220,12 @@ namespace Arcade.Game
             int attempts = 20;
             for (int i = 0; i < attempts; i++)
             {
-                float x = Random.Range(minScreen.x, maxScreen.x);
-                float y = Random.Range(minScreen.y, maxScreen.y);
+                float x = seededRng != null ?
+                    seededRng.Next((int)minScreen.x, (int)maxScreen.x) :
+                    Random.Range(minScreen.x, maxScreen.x);
+                float y = seededRng != null ?
+                    seededRng.Next((int)minScreen.y, (int)maxScreen.y) :
+                    Random.Range(minScreen.y, maxScreen.y);
                 Vector2 screenPos = new Vector2(x, y);
 
                 if (IsPositionValid(screenPos))

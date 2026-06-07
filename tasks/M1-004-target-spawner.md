@@ -1,9 +1,10 @@
 # M1-004: Target Spawner
 
-**Status:** Backlog  
-**Priority:** P0  
-**Assigned:** —  
-**Estimated:** 5h  
+**Status:** 🟡 In Progress
+**Priority:** P0
+**Assigned:** orchestrator
+**Estimated:** 5h
+**Started:** 2026-06-08
 **Milestone:** M1 — Core Loop
 
 ## Description
