@@ -1,10 +1,22 @@
 # M1-007: PlayMode Integration Test
 
-**Status:** Backlog  
-**Priority:** P1  
-**Assigned:** —  
-**Estimated:** 3h  
+**Status:** ✅ Done
+**Priority:** P1
+**Assigned:** orchestrator
+**Estimated:** 3h
+**Started:** 2026-06-08
+**Completed:** 2026-06-08
 **Milestone:** M1 — Core Loop
+
+## Completed Work
+
+- [x] `CoreLoopTests.cs` with 10+ integration tests
+- [x] Manager existence verification
+- [x] ScoreManager state transitions
+- [x] Game state transition tests
+- [x] Hit/miss/combo/game over pipeline tests
+- [x] Spawner and TargetDefinition validation
+- [x] Uses `[UnitySetUp]` and `[UnityTest]` for scene-based tests
 
 ## Description
 

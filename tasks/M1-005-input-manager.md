@@ -1,10 +1,22 @@
 # M1-005: Input Manager
 
-**Status:** Backlog  
-**Priority:** P0  
-**Assigned:** —  
-**Estimated:** 4h  
+**Status:** ✅ Done
+**Priority:** P0
+**Assigned:** orchestrator
+**Estimated:** 4h
+**Started:** 2026-06-08
+**Completed:** 2026-06-08
 **Milestone:** M1 — Core Loop
+
+## Completed Work
+
+- [x] `InputManager` raycast-based target selection
+- [x] Touch + mouse input support
+- [x] Double-tap detection
+- [x] Long-press detection for Charge targets
+- [x] Drag-to-trash for Trash targets
+- [x] Trash bin zone integration
+- [x] Gesture routing to `Target` callbacks
 
 ## Description
 

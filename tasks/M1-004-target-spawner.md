@@ -1,11 +1,20 @@
 # M1-004: Target Spawner
 
-**Status:** 🟡 In Progress
+**Status:** ✅ Done
 **Priority:** P0
 **Assigned:** orchestrator
 **Estimated:** 5h
 **Started:** 2026-06-08
+**Completed:** 2026-06-08
 **Milestone:** M1 — Core Loop
+
+## Completed Work
+
+- [x] `SpawnerManager` integrated with `RulesetDefinition`
+- [x] Seeded RNG support using `System.Random` with `ruleset.seed`
+- [x] `BuildTargetDefinitionsFromRuleset()` auto-creates SOs from rules
+- [x] Spawn rate uses ruleset.spawnIntervalStart/End
+- [x] maxConcurrentTargets uses ruleset value
 
 ## Description
 

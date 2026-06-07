@@ -1,10 +1,20 @@
 # M1-006: EditMode Tests
 
-**Status:** Backlog  
-**Priority:** P1  
-**Assigned:** —  
-**Estimated:** 3h  
+**Status:** ✅ Done
+**Priority:** P1
+**Assigned:** orchestrator
+**Estimated:** 3h
+**Started:** 2026-06-08
+**Completed:** 2026-06-08
 **Milestone:** M1 — Core Loop
+
+## Completed Work
+
+- [x] `ScoreCalculatorTests`: combo multiplier, miss handling, game over, high score
+- [x] `RulesetDefinitionTests.cs`: seeded RNG determinism, default values
+- [x] `GestureRecognizerTests.cs`: thresholds, enum values, TapData structure
+- [x] All EditMode tests use NUnit with proper Setup/Teardown
+- [x] Tests run without Unity scene (pure C# logic)
 
 ## Description
 
