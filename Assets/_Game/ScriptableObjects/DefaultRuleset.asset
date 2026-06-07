@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00000000000000000000000000000000, type: 0}
+  m_Name: DefaultRuleset
+  m_EditorClassIdentifier: 
+  rules:
+  - shape: 0
+    color: {r: 0.298, g: 0.686, b: 0.314, a: 1}
+    requiredGesture: 0
+    baseReward: 100
+  - shape: 1
+    color: {r: 0.129, g: 0.588, b: 0.953, a: 1}
+    requiredGesture: 1
+    baseReward: 200
+  - shape: 2
+    color: {r: 1, g: 0.922, b: 0.231, a: 1}
+    requiredGesture: 2
+    baseReward: 150
+  - shape: 3
+    color: {r: 0.612, g: 0.153, b: 0.698, a: 1}
+    requiredGesture: 3
+    baseReward: 250
+  comboStep: 1.1
+  comboCap: 5
+  lives: 3
+  roundSeconds: 60
+  targetLifetime: 4
+  spawnIntervalStart: 1.2
+  spawnIntervalEnd: 0.6
+  maxConcurrentTargets: 4
+  doubleTapWindow: 0.3
+  longPressDuration: 0.5
+  swipeMinDistance: 50
+  seed: 12345

@@ -1,9 +1,11 @@
 # M1-002: Ruleset Definition
 
-**Status:** Backlog  
-**Priority:** P0  
-**Assigned:** —  
-**Estimated:** 3h  
+**Status:** ✅ Done
+**Priority:** P0
+**Assigned:** orchestrator
+**Estimated:** 3h
+**Started:** 2026-06-08
+**Completed:** 2026-06-08
 **Milestone:** M1 — Core Loop
 
 ## Description

@@ -17,6 +17,7 @@ namespace Arcade.Game
         public int SuccessfulHits => _successfulHits;
 
         [Header("Config")]
+        [SerializeField] private RulesetDefinition ruleset;
         [SerializeField] private int _hitsPerMultiplierStep = 5;
         [SerializeField] private int _maxMultiplier = 5;
 
@@ -53,6 +54,16 @@ namespace Arcade.Game
             ResetGame();
         }
 
+        public void SetRuleset(RulesetDefinition newRuleset)
+        {
+            ruleset = newRuleset;
+            if (ruleset != null)
+            {
+                _maxMultiplier = Mathf.RoundToInt(ruleset.comboCap);
+                _maxLives = ruleset.lives;
+            }
+        }
+
         public void ResetGame()
         {
             _currentScore = 0;
@@ -71,11 +82,16 @@ namespace Arcade.Game
             OnScoreChanged?.Invoke(_currentScore, finalPoints);
         }
 
-        public void RegisterHit()
+        public void RegisterHit(int baseReward = 0)
         {
             _successfulHits++;
             UpdateMultiplier();
             OnComboChanged?.Invoke(_currentMultiplier, _successfulHits);
+            
+            if (baseReward > 0)
+            {
+                AddScore(baseReward);
+            }
         }
 
         public void RegisterMiss()

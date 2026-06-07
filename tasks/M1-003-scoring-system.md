@@ -1,9 +1,10 @@
 # M1-003: Scoring System
 
-**Status:** Backlog  
-**Priority:** P0  
-**Assigned:** —  
-**Estimated:** 4h  
+**Status:** 🟡 In Progress
+**Priority:** P0
+**Assigned:** orchestrator
+**Estimated:** 4h
+**Started:** 2026-06-08
 **Milestone:** M1 — Core Loop
 
 ## Description
