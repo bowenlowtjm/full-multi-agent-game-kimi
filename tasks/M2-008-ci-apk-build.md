@@ -1,10 +1,20 @@
 # M2-008: CI APK Build
 
-**Status:** Backlog
+**Status:** ✅ Done
 **Priority:** P0
-**Assigned:** —
+**Assigned:** orchestrator
 **Estimated:** 4h
+**Started:** 2026-06-08
+**Completed:** 2026-06-08
 **Milestone:** M2 — Menus + Art + Build
+
+## Completed Work
+
+- [x] GitHub Actions workflow with Android build job
+- [x] `game-ci/unity-builder@v4` for Android target
+- [x] Build depends on tests passing first
+- [x] APK artifact uploaded with `actions/upload-artifact@v4`
+- [x] Only builds on main branch pushes
 
 ## Description
 
