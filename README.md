@@ -1,25 +1,172 @@
-# templates/ — scaffold payload (copy into each new run repo)
+# Arcade Gesture Game - Unity Project
 
-These files are copied **verbatim into the new run repo** at Step 0 of [../RUN-PROTOCOL.md](../RUN-PROTOCOL.md), then filled in. They are not the spec — the spec is in `../spec/`.
+A fast-paced mobile arcade game built in Unity 6 LTS. Players interact with targets using specific gestures: Tap, Double Tap, Long Press, and Drag.
 
-| Path (→ repo root) | What it is | Fill-in |
-|--------------------|-----------|---------|
-| `AGENTS.md` | run-repo routing + conventions + spec pointer | none — ready |
-| `DESIGN.md` | art taste memory | palette + style (Game Art / run param) |
-| `Editor/Builder.cs` | batchmode Android build (agent-callable) | none — ready |
-| `Editor/AutoRefresher.cs` · `LocalRefreshServer.cs` · `Pully.EditorTools.asmdef` | headless compile + error check (no Editor focus) | none — ready |
-| `scripts/unity-check.sh` | wrapper: refresh+compile+read errors after each C# edit | set `PULLY_REFRESH_PORT` or `UNITY_BIN` |
-| `Assets/_Game/Scripts/RulesetDefinition.cs` | data-driven ruleset SO | create an asset, populate from `spec/RULESET.md` |
-| `Assets/_Game/Scripts/ScoreCalculator.cs` | pure scoring logic (unit-testable) | extend as the loop grows |
-| `Assets/_Game/Scripts/Pully.Game.asmdef` | game assembly | none — ready |
-| `Assets/Tests/EditMode/*` | unit tests + asmdef (1 passing sample) | add gesture/ruleset/determinism tests |
-| `Assets/Tests/PlayMode/*` | integration tests + asmdef (1 passing sample) | add input→score / lives / replay tests |
-| `.github/workflows/ci.yml` | run EditMode+PlayMode on PR (GameCI) | add `UNITY_*` secrets in repo |
-| `.github/workflows/build.yml` | Android APK artifact on `main` (GameCI) | add `UNITY_*` secrets in repo |
-| `docs/decisions.md` · `CONVENTIONS.md` · `GOTCHAS.md` · `run-log.md` | project memory | append during the run |
-| `adr/README.md` | ADR index + template | write `ADR{NNN}-*.md` at milestone checkpoints (`$SPEC_REPO/12-ADR-Process.md`) |
-| `.gitignore` | Unity ignores | none — ready |
+## Target Types
 
-After copying: create the Unity 6 **3D** project around these (Android module, Input System, 2D Sprite + 2D Atlas), then commit `chore: scaffold <RUN_ID> from spec kit`.
+| Target | Visual | Gesture | Points |
+|--------|--------|---------|--------|
+| Pop | Blue Sphere | Single Tap | +10 |
+| Heavy | Gold Square | Double Tap | +25 |
+| Charge | Green Anchor | Long Press (1.5s) | +50 |
+| Trash | Red Trash Can | Drag to Bin | +40 |
 
-> Note: Unity also generates `ProjectSettings/`, `Packages/`, and `.meta` files when you create/open the project — commit those too. They aren't templated here because Unity produces them.
+## Requirements
+
+- Unity 6 LTS (6000.0.x) or Unity 2022.3 LTS
+- Unity Modules:
+  - Android Build Support
+  - Input System
+  - TextMeshPro
+
+## Setup Instructions
+
+### 1. Clone/Download
+
+```bash
+git clone <repo_url> arcade-gesture-game
+cd arcade-gesture-game
+```
+
+### 2. Open in Unity
+
+1. Launch Unity Hub
+2. Click "Open"
+3. Select the project folder
+4. Unity will automatically download packages
+
+### 3. Configure Build Settings
+
+1. File → Build Settings
+2. Select "Android" platform
+3. Click "Switch Platform"
+4. Set:
+   - Minimum API Level: 24 (Android 7.0)
+   - Target API Level: 34+
+   - Orientation: Portrait
+
+### 4. Scene Setup
+
+Create the following scenes in `Assets/_Game/Scenes/`:
+
+#### MainMenu Scene
+1. Create empty scene
+2. Add GameObject: `GameStateManager` (add GameStateManager.cs)
+3. Add GameObject: `SceneLoader` (add SceneLoader.cs)
+4. Add Canvas with:
+   - Title Text: "ARCADE GESTURE"
+   - Start Button → MainMenuManager
+   - High Score Text
+5. Add MainMenuManager script to a GameObject
+
+#### Gameplay Scene
+1. Create empty scene
+2. Add Camera (orthographic, size 5)
+3. Add GameObject: `GameStateManager`
+4. Add GameObject: `SceneLoader`
+5. Add GameObject: `ScoreManager`
+6. Add GameObject: `InputManager` (set Target Layer to "Target")
+7. Add GameObject: `SpawnerManager` (assign Target Prefab)
+8. Add GameObject: `EffectsManager`
+9. Add Canvas with:
+   - Score Text (TMP)
+   - Combo Text (TMP)
+   - Lives Container (for heart icons)
+   - Pause Button
+   - Pause Panel (hidden)
+   - Trash Bin Zone (at bottom of screen)
+10. Add EventSystem
+
+#### GameOver Scene
+1. Create empty scene
+2. Add GameObject: `GameStateManager`
+3. Add Canvas with:
+   - Final Score Text
+   - High Score Text
+   - Retry Button
+   - Menu Button
+4. Add GameOverManager script
+
+### 5. Target Prefab Setup
+
+1. Create empty GameObject named "Target"
+2. Add SpriteRenderer component
+3. Add CircleCollider2D (or BoxCollider2D for square targets)
+4. Add Rigidbody2D (gravity scale = 0, body type = Kinematic)
+5. Add Target.cs script
+6. Create prefab in `Assets/_Game/Prefabs/`
+7. Assign to SpawnerManager.targetPrefab
+
+### 6. Sprites
+
+Create or import sprites for:
+- Pop (blue circle)
+- Heavy (gold square)
+- Charge (green anchor)
+- Trash (red trash can)
+- LifeIcon (heart)
+
+Place in `Assets/_Game/Sprites/`
+
+### 7. Build
+
+1. File → Build Settings
+2. Click "Build"
+3. Output: `Builds/Android/arcade-gesture.apk`
+
+## Project Structure
+
+```
+Assets/_Game/
+├── Scripts/           # Core game systems
+│   ├── GameStateManager.cs
+│   ├── ScoreManager.cs
+│   ├── SpawnerManager.cs
+│   ├── InputManager.cs
+│   ├── Target.cs
+│   ├── TargetDefinition.cs
+│   ├── EffectsManager.cs
+│   ├── HUDManager.cs
+│   ├── MainMenuManager.cs
+│   ├── GameOverManager.cs
+│   ├── SceneLoader.cs
+│   └── TrashBinZone.cs
+├── Prefabs/           # Game prefabs
+│   └── Target.prefab
+├── Sprites/           # Game assets
+├── Scenes/            # Game scenes
+│   ├── MainMenu.unity
+│   ├── Gameplay.unity
+│   └── GameOver.unity
+└── ScriptableObjects/ # Data assets
+
+Assets/Tests/
+├── EditMode/          # Unit tests
+└── PlayMode/          # Integration tests
+```
+
+## Controls
+
+- **Tap**: Single touch/release on Pop targets
+- **Double Tap**: Two quick taps on Heavy targets
+- **Long Press**: Hold for 1.5 seconds on Charge targets
+- **Drag**: Touch and drag Trash targets to the Trash Bin Zone
+
+## Game Loop
+
+1. Targets spawn based on difficulty curve
+2. Player performs correct gestures
+3. Correct = points + combo multiplier (every 5 hits)
+4. Wrong/Miss = combo breaks + lose life
+5. 3 lives, then Game Over
+
+## QA Verification (PRD Section 7)
+
+- [x] Verification 01: Tapping a Charge target breaks combo
+- [x] Verification 02: Dragging Trash outside bin penalizes
+- [ ] Verification 03: 60 FPS with 10+ targets
+- [x] Verification 04: High score persists (PlayerPrefs)
+
+## License
+
+MIT
