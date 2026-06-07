@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pully.Game
+namespace Arcade.Game
 {
     // Data-driven ruleset for Pully. Create an asset via:
     //   Assets > Create > Pully > Ruleset

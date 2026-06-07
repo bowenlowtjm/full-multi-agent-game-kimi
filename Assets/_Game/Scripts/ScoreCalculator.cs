@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Pully.Game
+namespace Arcade.Game
 {
     // Pure scoring logic — no scene, no MonoBehaviour — so it's fast to unit-test
     // in EditMode. Mirrors spec/RULESET.md (combo step, cap, score rounding).
