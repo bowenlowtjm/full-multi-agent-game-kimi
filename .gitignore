@@ -32,3 +32,46 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# UNITY
+# Ignore Library, Temp, Logs, UserSettings
+Library/
+Temp/
+Logs/
+UserSettings/
+
+# Ignore build output
+Build/
+build/
+Builds/
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE files
+.vs/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+
+# Ignore MemoryCaptures
+MemoryCaptures/
+
+# Ignore crash reports
+crashlytics-build.properties
+
+# Ignore auto-generated asset meta files (optional - keep if you want)
+# *.meta
+
+# Ignore JetBrains Rider
+.idea/
+*.iml
+
+# Ignore Unity Collaborate
+.collabignore
+
+# Ignore package cache (already imported via Packages/manifest.json)
+# Library/PackageCache/
