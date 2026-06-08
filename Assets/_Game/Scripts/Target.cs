@@ -28,6 +28,7 @@ namespace Arcade.Game
         public bool IsTrashTarget => TargetType == TargetType.Trash;
         public bool IsHeld => isHeld;
         public float HoldProgress => definition != null ? holdTime / definition.longPressDuration : 0f;
+        public float RemainingLifetime => lifetime;
 
         private void Awake()
         {
