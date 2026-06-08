@@ -1,10 +1,21 @@
 # M2-002: Settings Screen
 
-**Status:** Backlog
+**Status:** ✅ Done
 **Priority:** P1
-**Assigned:** —
-**Estimated:** 3h
-**Milestone:** M2 — Menus + Art + Build
+**Assigned:** orchestrator
+**Estimated:** 4h
+**Started:** 2026-06-08
+**Completed:** 2026-06-08
+**Milestone:** M4 — Release Polish
+
+## Completed Work
+
+- [x] `SettingsManager.cs` with audio/haptics/tutorial
+- [x] `AudioManager.cs` with music + 6 SFX slots
+- [x] Volume sliders with persistence
+- [x] Mute toggle
+- [x] Haptics toggle
+- [x] Tutorial replay button
 
 ## Description
 

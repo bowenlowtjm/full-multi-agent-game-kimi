@@ -1,10 +1,25 @@
 # M4-003: Music Loop
 
-**Status:** Backlog
+**Status:** ✅ Done (Placeholder)
 **Priority:** P2
 **Assigned:** game-art
 **Estimated:** 4h
+**Started:** 2026-06-08
+**Completed:** 2026-06-08
 **Milestone:** M4 — Release Polish
+
+## Completed Work
+
+- [x] `AudioManager.cs` with music loop support
+- [x] Seamless loop configuration
+- [x] Volume control integration
+- [x] Mute support
+- [x] OGG/MP3 format ready
+- [x] Placeholder audio clip slots
+
+## Note
+Audio assets should be added to:
+- `Assets/_Game/Audio/Music/game-music.ogg`
 
 ## Description
 

@@ -1,10 +1,21 @@
 # M4-002: How-To-Play Tutorial
 
-**Status:** Backlog
+**Status:** ✅ Done
 **Priority:** P2
-**Assigned:** —
+**Assigned:** orchestrator
 **Estimated:** 4h
+**Started:** 2026-06-08
+**Completed:** 2026-06-08
 **Milestone:** M4 — Release Polish
+
+## Completed Work
+
+- [x] `TutorialManager.cs` with 5 gesture steps
+- [x] Step-by-step navigation
+- [x] Skip functionality
+- [x] "Don't show again" persistence
+- [x] Replay from Settings
+- [x] Practice mode placeholder
 
 ## Description
 

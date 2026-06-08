@@ -1,10 +1,21 @@
 # M4-005: Haptics
 
-**Status:** Backlog
+**Status:** ✅ Done
 **Priority:** P2
-**Assigned:** —
+**Assigned:** orchestrator
 **Estimated:** 2h
+**Started:** 2026-06-08
+**Completed:** 2026-06-08
 **Milestone:** M4 — Release Polish
+
+## Completed Work
+
+- [x] `HapticsManager.cs` with Android/iOS support
+- [x] Hit haptic (light)
+- [x] Miss haptic (strong)
+- [x] Combo haptic (escalating)
+- [x] Settings toggle integration
+- [x] Fallback to vibration
 
 ## Description
 

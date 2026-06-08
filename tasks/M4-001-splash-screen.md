@@ -1,10 +1,20 @@
 # M4-001: Splash Screen
 
-**Status:** Backlog
+**Status:** ✅ Done
 **Priority:** P2
-**Assigned:** —
+**Assigned:** orchestrator
 **Estimated:** 2h
+**Started:** 2026-06-08
+**Completed:** 2026-06-08
 **Milestone:** M4 — Release Polish
+
+## Completed Work
+
+- [x] `SplashScreen.cs` with async scene loading
+- [x] Fade in/out animations
+- [x] Loading bar progress
+- [x] Minimum display time (2s)
+- [x] Transitions to MainMenu
 
 ## Description
 

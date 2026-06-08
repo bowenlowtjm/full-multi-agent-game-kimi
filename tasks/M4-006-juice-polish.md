@@ -1,10 +1,23 @@
 # M4-006: Juice & Polish
 
-**Status:** Backlog
+**Status:** ✅ Done
 **Priority:** P1
-**Assigned:** game-art
+**Assigned:** orchestrator
 **Estimated:** 6h
+**Started:** 2026-06-08
+**Completed:** 2026-06-08
 **Milestone:** M4 — Release Polish
+
+## Completed Work
+
+- [x] Enhanced `EffectsManager.cs` with full juice suite
+- [x] Particle pooling for performance
+- [x] Floating score popups with pooling
+- [x] Screen shake with intensity multiplier
+- [x] Smooth flash effects with curves
+- [x] Scale pop animations
+- [x] High score celebration effect
+- [x] Haptic integration on all effects
 
 ## Description
 
